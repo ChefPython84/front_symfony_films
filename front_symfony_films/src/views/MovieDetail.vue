@@ -1,3 +1,37 @@
+<template>
+  <div class="container mt-5">
+    <div v-if="movieData">
+      <h1 class="display-4">{{ movieData.title }}</h1>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <img :src="movieData.poster" alt="Movie Poster" class="img-fluid rounded" />
+            </div>
+            <div class="col-md-6">
+              <ul class="list-unstyled">
+                <li><strong>Réalisateur:</strong> {{ movieData.director }}</li>
+                <li><strong>Date de sortie:</strong> {{ formatDate(movieData.release_date) }}</li>
+                <li><strong>Durée:</strong> {{ movieData.duration }} min</li>
+                <li><strong>Nombre d'entrées:</strong> {{ movieData.entries }}</li>
+                <li><strong>Budget:</strong> {{ movieData.budget }} €</li>
+                <li><strong>Site web:</strong> {{ movieData.website }}</li>
+              </ul>
+              <p class="lead">{{ movieData.description }}</p>
+            </div>
+          </div>
+          <h4 class="mt-4">Acteurs</h4>
+          <ul class="list-inline">
+            <li v-for="actor in movieData.actors" :key="actor.id" class="list-inline-item">
+              {{ actor.firstName }} {{ actor.lastName }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { ref, onMounted, defineProps } from "vue";
 import { useRoute } from "vue-router";
@@ -11,15 +45,20 @@ defineProps({
 });
 
 const movieData = ref(null);
+
+const formatDate = (dateString) => {
+  return new Date(dateString).toLocaleDateString();
+};
+
 const AuthenticationRequest = async () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   if (token) {
     try {
-      const id = useRoute().params.id; // Utilisez directement useRoute() pour récupérer le paramètre
+      const id = useRoute().params.id;
       const response = await fetch(`http://localhost:8000/api/movies/${id}`, {
         method: "GET",
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       const jsonData = await response.json();
@@ -28,7 +67,6 @@ const AuthenticationRequest = async () => {
         console.log("Vous n'êtes pas connecté");
       }
       movieData.value = jsonData;
-      console.log(jsonData);
     } catch (error) {
       console.error(error);
     }
@@ -37,41 +75,45 @@ const AuthenticationRequest = async () => {
   }
 };
 
-
-
 onMounted(async () => {
   await AuthenticationRequest();
 });
-
 </script>
 
-<template>
-  <div class="container mt-5">
-    <p></p>
-    <div v-if="movieData">
-      <h1>{{ movieData.title }}</h1>
-      <div class="card">
-        <div class="card-body">
-          <p class="card-text fw-light">{{}}</p>
-          <p class="card-text">{{ movieData.description }}</p>
-          <p class="card-text">{{ movieData.director }}</p>
-          <p class="card-text">{{ movieData.entries }}</p>
-          <p class="card-text">{{ movieData.budget }}</p>
-          <p class="card-text">{{ movieData.website }}</p>
-          <p class="card-text">{{ movieData.releaseDate }}</p>
-          <p class="card-text">{{ movieData.duration }} min</p>
-          <h4>Acteurs</h4>
-          <div class="card-text">
-            <p v-for="actor in movieData.actors" :key="actor.id" class="card-text">
-              {{ actor.firstName }} {{ actor.lastName }}<br>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <style scoped>
+.container {
+  max-width: 800px;
+}
 
+.card {
+  margin-top: 20px;
+}
+
+.list-unstyled {
+  list-style: none;
+  padding: 0;
+}
+
+.list-inline {
+  padding: 0;
+}
+
+.list-inline-item {
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+
+.display-4 {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.lead {
+  font-size: 1.2em;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
 </style>

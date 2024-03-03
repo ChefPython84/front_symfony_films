@@ -1,44 +1,39 @@
 <template>
   <div class="container mt-5">
-    <h1>Films</h1>
-    <form class="d-flex">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-        v-model="searchInput"
-        @input="autoSearch"
-      />
+    <h1 class="text-center">Films</h1>
+    <form class="d-flex mb-4">
+      <div class="input-group">
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Recherche"
+          aria-label="Recherche"
+          v-model="searchInput"
+          @input="autoSearch"
+        />
+        <button class="btn btn-outline-success" type="submit">Rechercher</button>
+      </div>
     </form>
-    <div class="my-5">
-      <div class="row my-5">
-        <div class="col">
-          <CardMovie
-            v-for="movie in paginatedMovies"
-            :key="movie.id"
-            :movie="movie"
-          />
-        </div>
+    <div class="row">
+      <div class="col-md-6" v-for="movie in paginatedMovies" :key="movie.id">
+        <CardMovie :movie="movie" />
       </div>
     </div>
-    <div>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" @click="changePage(-1)" :disabled="currentPage === 1" aria-label="Previous">
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link">{{ currentPage }} / {{ totalPages }}</a></li>
-          <li class="page-item">
-            <a class="page-link" @click="changePage(1)" :disabled="currentPage === totalPages" aria-label="Next">
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <a class="page-link" @click="changePage(-1)" :disabled="currentPage === 1" aria-label="Précédent">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link">{{ currentPage }} / {{ totalPages }}</a></li>
+        <li class="page-item">
+          <a class="page-link" @click="changePage(1)" :disabled="currentPage === totalPages" aria-label="Suivant">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -51,7 +46,7 @@ const movies = ref([]);
 const searchInput = ref("");
 const totalPages = ref(0);
 const currentPage = ref(1);
-const itemsPerPage = 10; // Nombre d'éléments par page
+const itemsPerPage = 8;
 const paginatedMovies = ref([]);
 
 const AuthenticationRequest = async () => {
@@ -136,9 +131,50 @@ const updatePagination = () => {
   paginatedMovies.value = movies.value.slice(startIndex, endIndex);
   totalPages.value = Math.ceil(movies.value.length / itemsPerPage);
 };
-
 </script>
 
 <style scoped>
-/* Vos styles ici */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+}
+
+.form-control {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.btn-outline-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.page-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.page-link {
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.page-link:hover {
+  background-color: #28a745;
+  color: #fff;
+  border-color: #28a745;
+}
 </style>
