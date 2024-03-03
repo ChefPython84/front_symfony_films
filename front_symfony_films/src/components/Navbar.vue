@@ -1,4 +1,7 @@
 <script setup>
+import Logout from '@/components/security/Logout.vue'
+import Login from '@/components/security/Login.vue'
+import logout from '@/components/security/Logout.vue'
 </script>
 
 <template>
@@ -21,6 +24,7 @@
           </li>
         </ul>
       </div>
+      <logout />
     </div>
   </nav>
 </template>
