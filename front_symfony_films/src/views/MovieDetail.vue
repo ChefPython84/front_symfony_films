@@ -11,7 +11,6 @@ defineProps({
 });
 
 const movieData = ref(null);
-
 const AuthenticationRequest = async () => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -37,6 +36,8 @@ const AuthenticationRequest = async () => {
     console.log("Vous n'êtes pas connecté");
   }
 };
+
+
 
 onMounted(async () => {
   await AuthenticationRequest();
