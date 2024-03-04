@@ -22,11 +22,23 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/ActorDetail/:id',
+      name: 'ActorDetail',
+      component: () => import('../views/ActorDetail.vue'),
+      props: true,
+    },
+    {
+      path:'/ActorView',
+      name: 'ActorView',
+      component: () => import('../views/ActorView.vue'),
+      props: true
+    },
+    {
       path: '/MovieDetail/:id',
       name: 'MovieDetail',
       component: () => import('../views/MovieDetail.vue'),
       props: true
-    }
+    },
   ]
 })
 

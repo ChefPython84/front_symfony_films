@@ -247,7 +247,14 @@ const addMovie = async () => {
       console.log('Film ajouté avec succès!');
       newMovie.value = {
         title: '',
-        year: null,
+        release_date: null,
+        description: '',
+        duration: '',
+        note: '',
+        entries: '',
+        budget: '',
+        director: '',
+        website: '',
         actors: [],
         Category: null,
       };
