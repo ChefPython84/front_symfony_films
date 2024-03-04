@@ -16,7 +16,7 @@
     </form>
     <div class="row">
       <div class="col-md-6" v-for="movie in paginatedMovies" :key="movie.id">
-        <CardMovie :movie="movie" />
+        <CardMovie :movie="movie" :movies="movies" />
       </div>
     </div>
     <nav aria-label="Page navigation example">
