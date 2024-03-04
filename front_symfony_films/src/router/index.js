@@ -14,6 +14,18 @@ const router = createRouter({
       name: 'login',
       component: () => import('../components/security/Login.vue'),
       props: true
+    },
+    {
+      path:'/MovieView',
+      name: 'MovieView',
+      component: () => import('../views/MovieView.vue'),
+      props: true
+    },
+    {
+      path: '/MovieDetail/:id',
+      name: 'MovieDetail',
+      component: () => import('../views/MovieDetail.vue'),
+      props: true
     }
   ]
 })
