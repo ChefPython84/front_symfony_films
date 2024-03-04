@@ -1,14 +1,19 @@
 <template>
   <div>
-    <div class="card w-100 mb-4">
+    <div class="card mb-4">
       <div class="card-body">
         <h4 class="card-title">{{ movie.title }}</h4>
         <p class="card-text">{{ truncateText(movie.description, 150) }}</p>
-        <p class="card-text fst-italic"><strong>Date de sortie:</strong> {{ movie && formatReleaseDate(movie.release_date) }}</p>
-        <router-link :to="{ name: 'MovieDetail', params: { id: movie && movie.id }}" class="btn btn-primary">En savoir plus</router-link>
-        <button type="button" class="btn btn-secondary ms-2" @click="toggleDetails(movie.id)">Modifier</button>
-        <button type="button" class="btn btn-danger ms-2" @click="openDeleteModal(movie.id)">Supprimer</button>
-
+        <p class="card-text fst-italic">
+          <strong>Date de sortie:</strong> {{ movie && formatReleaseDate(movie.release_date) }}
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+          <router-link :to="{ name: 'MovieDetail', params: { id: movie && movie.id }}" class="btn btn-info btn-sm">En savoir plus</router-link>
+          <div class="d-flex">
+            <button type="button" class="btn btn-warning btn-sm ms-2" @click="toggleDetails(movie.id)">Modifier</button>
+            <button type="button" class="btn btn-danger btn-sm ms-2" @click="openDeleteModal(movie.id)">Supprimer</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -51,7 +56,6 @@
           <label for="editMovieDirector">Réalisateur :</label>
           <input type="text" class="form-control mt-1" id="editMovieDirector" v-model="selectedMovie.director" />
         </div>
-
         <div class="my-3 mt-3">
           <button type="submit" class="btn btn-primary">Modifier</button>
           <button type="button" class="btn btn-secondary ms-2" @click="closeForm">Fermer</button>
@@ -193,12 +197,8 @@ const formatReleaseDate = (releaseDate) => {
   overflow: hidden;
   transition: transform 0.3s;
   width: 100%;
-
-  &.border-warning {
-    border-color: #ffc107;
-    border-width: 10px;
-  }
 }
+
 .card:hover {
   transform: scale(1.02);
 }
@@ -208,7 +208,7 @@ const formatReleaseDate = (releaseDate) => {
 }
 
 .card-title {
-  font-size: 25px;
+  font-size: 20px;
   margin-bottom: 5px;
   white-space: nowrap;
   overflow: hidden;
@@ -219,4 +219,16 @@ const formatReleaseDate = (releaseDate) => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.btn-info,
+.btn-warning,
+.btn-danger,
+.btn-info:hover,
+.btn-warning:hover,
+.btn-danger:hover {
+  font-size: 12px;
+  padding: 6px 12px;
+}
+
+/* Ajoutez des styles supplémentaires au besoin */
 </style>

@@ -244,7 +244,6 @@ const addMovie = async () => {
         console.log('Vous n\'êtes pas connecté');
       }
 
-      // Affichez un message de succès, réinitialisez le formulaire, etc.
       console.log('Film ajouté avec succès!');
       newMovie.value = {
         title: '',
