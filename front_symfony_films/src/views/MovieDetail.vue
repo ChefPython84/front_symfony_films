@@ -10,6 +10,7 @@
             </div>
             <div class="col-md-6">
               <ul class="list-unstyled">
+                <li v-if="movieData.Category?.name"><strong>Catégorie</strong> {{ movieData.Category?.name }}</li>
                 <li><strong>Réalisateur:</strong> {{ movieData.director }}</li>
                 <li><strong>Date de sortie:</strong> {{ formatDate(movieData.release_date) }}</li>
                 <li><strong>Durée:</strong> {{ movieData.duration }} min</li>
