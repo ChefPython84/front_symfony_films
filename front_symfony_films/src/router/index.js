@@ -22,7 +22,7 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/MovieDetail:id',
+      path: '/MovieDetail/:id',
       name: 'MovieDetail',
       component: () => import('../views/MovieDetail.vue'),
       props: true

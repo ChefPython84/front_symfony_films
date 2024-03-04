@@ -7,6 +7,8 @@
         <p class="card-text fst-italic"><strong>Date de sortie:</strong> {{ movie && formatReleaseDate(movie.release_date) }}</p>
         <router-link :to="{ name: 'MovieDetail', params: { id: movie && movie.id }}" class="btn btn-primary">En savoir plus</router-link>
         <button type="button" class="btn btn-secondary ms-2" @click="toggleDetails(movie.id)">Modifier</button>
+        <button type="button" class="btn btn-danger ms-2" @click="openDeleteModal(movie.id)">Supprimer</button>
+
       </div>
     </div>
 
@@ -70,6 +72,20 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" id="deleteSuccessModal" tabindex="-1" aria-labelledby="deleteSuccessModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteSuccessModalLabel">Suppression réussie</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ deleteSuccess ? 'Le film a été supprimé avec succès !' :'Le film a été supprimé avec succès '}}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -79,6 +95,7 @@ import { defineProps, ref, onMounted } from 'vue';
 const { movie, movies } = defineProps(['movie', 'movies']);
 const selectedMovieId = ref(null);
 const selectedMovie = ref(null);
+const deleteSuccess = ref(false);
 
 const toggleDetails = (id) => {
   selectedMovieId.value = id;
@@ -117,8 +134,39 @@ const updateMovie = async () => {
   }
 };
 
+const openDeleteModal = (id) => {
+  console.log('Open Delete Modal called');
+  selectedMovieId.value = id;
+  const deleteSuccessModal = new bootstrap.Modal(document.getElementById('deleteSuccessModal'));
+  deleteSuccessModal.show();
+
+  // Appel à deleteMovie après 3 secondes
+  setTimeout(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (token && selectedMovieId.value) {
+        const response = await fetch(`http://localhost:8000/api/movies/${selectedMovieId.value}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          deleteSuccess.value = true;
+          window.location.reload();
+        } else {
+          deleteSuccess.value = false;
+        }
+      }
+    } catch (error) {
+      console.error(error.message);
+      deleteSuccess.value = false;
+    }
+  }, 1000);
+};
+
 const closeForm = () => {
-  // Réinitialisez les valeurs
   selectedMovieId.value = null;
   selectedMovie.value = null;
 };

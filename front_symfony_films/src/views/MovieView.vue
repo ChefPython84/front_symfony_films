@@ -3,14 +3,7 @@
     <h1 class="text-center">Films</h1>
     <form class="d-flex mb-4">
       <div class="input-group">
-        <input
-          class="form-control"
-          type="search"
-          placeholder="Recherche"
-          aria-label="Recherche"
-          v-model="searchInput"
-          @input="autoSearch"
-        />
+        <input class="form-control" type="search" placeholder="Recherche" aria-label="Recherche" v-model="searchInput" @input="autoSearch" />
         <button class="btn btn-outline-success" type="submit">Rechercher</button>
       </div>
     </form>
