@@ -56,7 +56,7 @@ onMounted(async () => {
         <div class="card-body p-5">
           <div class="row">
             <div class="col-md-6">
-              <img :src="movieData.poster" alt="Movie Poster" class="img-fluid rounded shadow" />
+              <img :src="movieData.image" class="img-fluid rounded shadow" />
             </div>
             <div class="col-md-6">
               <ul class="list-unstyled movie-info">
@@ -79,7 +79,7 @@ onMounted(async () => {
               <div class="card bg-light">
                 <div class="card-body">
                   <h5 class="card-title">{{ actor.firstName }} {{ actor.lastName }}</h5>
-                  <p class="card-text">{{ actor.nationality }}</p>
+                  <router-link to="/ActorDetail" class="btn btn-primary">Voir plus</router-link>
                 </div>
               </div>
             </div>
