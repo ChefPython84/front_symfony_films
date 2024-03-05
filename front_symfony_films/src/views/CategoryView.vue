@@ -113,7 +113,9 @@ const closeModal = () => {
 
 const AuthenticationRequest = async () => {
   const token = localStorage.getItem("token");
-  if (token) {
+  if (!token){
+    await router.push("/login");
+  }else {
     try {
       const response = await fetch(
         `http://localhost:8000/api/categories`,
@@ -134,8 +136,6 @@ const AuthenticationRequest = async () => {
     } catch (error) {
       console.log(error);
     }
-  } else {
-    console.log("Vous n'êtes pas connecté");
   }
 };
 
