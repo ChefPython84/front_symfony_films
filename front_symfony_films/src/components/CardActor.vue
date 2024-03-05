@@ -16,7 +16,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-3 card p-5 border-warning bg-light my-4" v-if="selectedActor">
       <h2>{{ selectedActor.lastName }} {{ selectedActor.firstName }}</h2>
       <form @submit.prevent="updateActor">
@@ -111,7 +110,7 @@ const updateActor = async () => {
 
       const actorIndex = actors.findIndex((actor) => actor.id === selectedActorId.value);
       // eslint-disable-next-line vue/no-mutating-props
-      actors[actorIndex] = responseData;  // Utiliser la variable responseData ici
+      actors[actorIndex] = responseData;
 
       selectedActorId.value = null;
       selectedActor.value = null;
@@ -120,14 +119,11 @@ const updateActor = async () => {
     }
   }
 };
-
 const openDeleteModal = (id) => {
   console.log('Open Delete Modal called');
   selectedActorId.value = id;
   const deleteSuccessModal = new bootstrap.Modal(document.getElementById('deleteSuccessModal'));
   deleteSuccessModal.show();
-
-  // Appel à deleteActor après 3 secondes
   setTimeout(async () => {
     try {
       const token = localStorage.getItem('token');
@@ -203,6 +199,4 @@ onMounted(() => {
   font-size: 12px;
   padding: 6px 12px;
 }
-
-/* Ajoutez des styles supplémentaires au besoin */
 </style>

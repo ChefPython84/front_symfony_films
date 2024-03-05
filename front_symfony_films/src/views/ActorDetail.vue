@@ -2,8 +2,7 @@
 import { ref, onMounted, defineProps } from "vue";
 import router from "../router";
 
-const { id } = defineProps(["id"]); // Utilisez id comme prop
-
+const { id } = defineProps(["id"]);
 const actorData = ref(null);
 
 const AuthenticationRequest = async () => {
@@ -110,10 +109,6 @@ onMounted(async () => {
   font-weight: bold;
 }
 
-.lead {
-  font-size: 1.2em;
-}
-
 .list-unstyled li {
   font-size: 1.2em;
   margin-bottom: 10px;
@@ -129,7 +124,7 @@ onMounted(async () => {
 }
 
 .btn-back {
-  background-color: #6c757d; /* Gris */
+  background-color: #6c757d;
   border-color: #6c757d;
   font-size: 0.8em;
   padding: 6px 10px;
