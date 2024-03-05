@@ -20,7 +20,7 @@ import Logout from '@/components/security/Logout.vue'
             <router-link class="nav-link" to="/CategoryView">Catégories</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-profile" to="/UserView">Profil</router-link>
+            <router-link class="nav-link nav-link-profile" to="/Profile">Profil</router-link>
           </li>
           <li class="nav-item">
             <Logout />

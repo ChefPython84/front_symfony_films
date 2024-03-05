@@ -51,18 +51,6 @@ const router = createRouter({
       component: () => import('../views/CategoryView.vue'),
       props: true
     },
-    {
-      path: '/UserDetail/:id',
-      name: 'UserDetail',
-      component: () => import('../views/UserDetail.vue'),
-      props: true
-    },
-    {
-      path:'/UserView',
-      name: 'UserView',
-      component: () => import('../views/UserView.vue'),
-      props: true
-    },
 
   ]
 })

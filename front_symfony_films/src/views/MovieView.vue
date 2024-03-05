@@ -273,9 +273,7 @@ const closeModal = () => {
 
 const AuthenticationRequest = async () => {
   const token = localStorage.getItem("token");
-  if (!token){
-    await router.push("/login");
-  }else {
+  if (token) {
     try {
       const response = await fetch(
         `http://localhost:8000/api/movies?page=${currentPage.value}&itemsPerPage=${itemsPerPage.value}`,
@@ -297,6 +295,8 @@ const AuthenticationRequest = async () => {
     } catch (error) {
       console.log(error);
     }
+  } else {
+    console.log("Vous n'êtes pas connecté");
   }
 };
 const autoSearch = async () => {
