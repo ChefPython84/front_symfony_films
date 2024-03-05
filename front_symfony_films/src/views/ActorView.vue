@@ -24,7 +24,7 @@
           </div>
           <div class="form-group mt-2">
             <label for="reward">Nombre de Reward</label>
-            <input type="number" class="form-control mt-1" v-model="newActor.reward" required />
+            <input type="text" class="form-control mt-1" v-model="newActor.reward" required />
           </div>
               <div class="form-group">
                 <button type="submit" class="btn btn-primary mt-4">Ajouter</button>

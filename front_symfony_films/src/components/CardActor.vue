@@ -29,7 +29,7 @@
         </div>
         <div class="form-group mt-4">
           <label for="editActorReward">Nombre de Reward</label>
-          <input type="number" class="form-control mt-1" id="editActorReward" v-model="selectedActor.reward" />
+          <input type="text" class="form-control mt-1" id="editActorReward" v-model="selectedActor.reward" />
         </div>
         <div class="my-3 mt-3">
           <button type="submit" class="btn btn-primary">Modifier</button>
