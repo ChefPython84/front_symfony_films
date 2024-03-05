@@ -22,6 +22,12 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/MovieDetail/:id',
+      name: 'MovieDetail',
+      component: () => import('../views/MovieDetail.vue'),
+      props: true
+    },
+    {
       path: '/ActorDetail/:id',
       name: 'ActorDetail',
       component: () => import('../views/ActorDetail.vue'),
@@ -34,11 +40,18 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/MovieDetail/:id',
-      name: 'MovieDetail',
-      component: () => import('../views/MovieDetail.vue'),
+      path: '/CategoryDetail/:id',
+      name: 'CategoryDetail',
+      component: () => import('../views/CategoryDetail.vue'),
       props: true
     },
+    {
+      path:'/CategoryView',
+      name: 'CategoryView',
+      component: () => import('../views/CategoryView.vue'),
+      props: true
+    },
+
   ]
 })
 
