@@ -1,35 +1,36 @@
-# front_symfony_films
+# Front_symfony_films
 
-This template should help get you started developing with Vue 3 in Vite.
+Ce projet est un projet de test pour un poste de développeur front-end. Il s'agit d'une application web permettant de lister des films et de les consulter.
 
-## Recommended IDE Setup
+Auteur : Erwan Couturier TP E
+
+## Technologies utilisées
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Cloner le projet
 
 ```sh
-npm install
+git clone https://github.com/ChefPython84/front_symfony_films.git
 ```
 
-### Compile and Hot-Reload for Development
+## Installer les dépendances
 
 ```sh
-npm run dev
+ cd front_symfony_films
+ npm install
 ```
 
-### Compile and Minify for Production
+## Lancer le projet
 
 ```sh
-npm run build
+npm run serve
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+##  Connexion 
 
-```sh
-npm run lint
-```
+Pour se connecter à l'application, il faut utiliser les identifiants suivants :
+
+- email : `user@gmail.com`
+- mot de passe : `password`
+
