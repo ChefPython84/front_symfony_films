@@ -17,7 +17,7 @@ import logout from '@/components/security/Logout.vue'
             <router-link class="navbar-brand" to="/MovieView"><a class="nav-link" aria-current="page" href="#">Film</a></router-link>
           </li>
           <li class="nav-item d-flex justify-content-center align-items-center">
-            <router-link class="navbar-brand" to=""><a class="nav-link" aria-current="page" href="#">Acteurs</a></router-link>
+            <router-link class="navbar-brand" to="/ActorView"><a class="nav-link" aria-current="page" href="#">Acteurs</a></router-link>
           </li>
           <li class="nav-item d-flex justify-content-center align-items-center">
             <router-link class="navbar-brand" to=""><a class="nav-link" aria-current="page" href="#">Catégories</a></router-link>
