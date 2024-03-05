@@ -36,6 +36,6 @@ Pour se connecter à l'application, il faut utiliser les identifiants suivants :
 
 ##  Accès au projet symfony
 
-L'accès au projet symfony se situe dans le fichier .submodule
+L'accès au projet symfony se situe dans le fichier .gitmodule
 
 
