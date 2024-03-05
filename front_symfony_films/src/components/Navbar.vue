@@ -1,0 +1,34 @@
+<script setup>
+import Logout from '@/components/security/Logout.vue'
+import Login from '@/components/security/Login.vue'
+import logout from '@/components/security/Logout.vue'
+</script>
+
+<template>
+  <nav class="navbar navbar-expand-lg navbar-light px-5 bg-info">
+    <div class="container-fluid">
+      <router-link class="navbar-brand" to="/"><a class="navbar-brand fw-bold text-white">Movie-Hub</a></router-link>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item d-flex justify-content-center align-items-center">
+            <router-link class="navbar-brand" to="/MovieView"><a class="nav-link" aria-current="page" href="#">Film</a></router-link>
+          </li>
+          <li class="nav-item d-flex justify-content-center align-items-center">
+            <router-link class="navbar-brand" to="/ActorView"><a class="nav-link" aria-current="page" href="#">Acteurs</a></router-link>
+          </li>
+          <li class="nav-item d-flex justify-content-center align-items-center">
+            <router-link class="navbar-brand" to=""><a class="nav-link" aria-current="page" href="#">Catégories</a></router-link>
+          </li>
+        </ul>
+      </div>
+      <logout />
+    </div>
+  </nav>
+</template>
+
+<style scoped>
+
+</style>
