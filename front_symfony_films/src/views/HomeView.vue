@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import router from "../router";
 import CardMovie  from '@/components/CardMovie.vue';
+import CardActor from '@/components/CardActor.vue'
 
 const data_movie = ref(null);
 const data_actors = ref(null);
@@ -61,8 +62,10 @@ onMounted(async () => {
       <hr class="border-bottom my-4">
       <div class="my-5">
         <h2 class="mb-4 display-5">Les derniers acteurs</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-          <!-- Ajoutez le composant pour afficher les détails de l'acteur ici -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+          <div class="col" v-for="actor in data_actors" :key="actor.id">
+            <CardActor :actor="actor" />
+          </div>
         </div>
       </div>
     </div>
