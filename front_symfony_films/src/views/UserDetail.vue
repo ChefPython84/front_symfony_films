@@ -3,13 +3,13 @@ import { ref, onMounted, defineProps } from "vue";
 import router from "../router";
 
 const { id } = defineProps(["id"]);
-const actorData = ref(null);
+const userData = ref(null);
 
 const AuthenticationRequest = async () => {
   const token = localStorage.getItem("token");
   if (token) {
     try {
-      const response = await fetch(`http://localhost:8000/api/actors/${id}`, {
+      const response = await fetch(`http://localhost:8000/api/users/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -20,7 +20,7 @@ const AuthenticationRequest = async () => {
         await router.push("/login");
         console.log("Vous n'êtes pas connecté");
       }
-      actorData.value = jsonData;
+      userData.value = jsonData;
     } catch (error) {
       console.error(error);
     }
@@ -36,36 +36,27 @@ onMounted(async () => {
 
 <template>
   <div class="container my-5">
-    <div v-if="actorData" class="movie-details">
+    <div v-if="userData" class="movie-details">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="display-4">{{ actorData.firstName }} {{ actorData.lastName }}</h1>
-        <router-link to="/ActorView" class="btn btn-primary btn-back">Retour aux acteurs</router-link>
+        <h1 class="display-4">{{ userData.username }}</h1>
+        <router-link to="/UserView" class="btn btn-primary btn-back">Retour aux utilisateurs</router-link>
       </div>
       <div class="card shadow">
         <div class="card-body p-5">
           <div class="row">
             <div class="col-md-6">
-              <img :src="actorData.image"  class="img-fluid rounded shadow" />
+              <img :src="userData.image"  class="img-fluid rounded shadow" />
             </div>
             <div class="col-md-6">
               <ul class="list-unstyled movie-info">
-                <li v-if="actorData.nationality?.name">
-                  <strong>Nationalité :</strong> {{ actorData.nationality.name }}
-                </li>
-                <li><strong>Nombre de Reward :</strong> {{ actorData.reward }}</li>
+                <li><strong>Pseudo</strong> {{ userData.username }}</li>
               </ul>
-            </div>
-          </div>
-          <h4 class="mt-4">Films</h4>
-          <div class="row actor-list">
-            <div v-for="movie in actorData.movies" :key="movie.id" class="col-md-4 mb-3">
-              <div class="card bg-light">
-                <div class="card-body">
-                  <h5 class="card-title">{{ movie.title }}</h5>
-                  <p class="card-text">{{ movie.description }}</p>
-                  <router-link :to="{ name: 'MovieDetail', params: { id: movie.id } }" class="btn btn-primary">Voir le film</router-link>
-                </div>
-              </div>
+              <ul class="list-unstyled movie-info">
+                <li><strong>Email</strong> :{{ userData.email }}</li>
+              </ul>
+              <ul class="list-unstyled movie-info">
+                <li><strong>Roles</strong> :{{ userData.roles }}</li>
+              </ul>
             </div>
           </div>
         </div>

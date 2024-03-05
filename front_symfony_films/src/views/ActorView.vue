@@ -146,32 +146,33 @@ const closeModal = () => {
 
 const AuthenticationRequest = async () => {
   const token = localStorage.getItem("token");
-  if (token) {
-    try {
-      const response = await fetch(
-        `http://localhost:8000/api/actors?page=${currentPage.value}&itemsPerPage=${itemsPerPage.value}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+  if (!token){
+    await router.push("/login");
+    }else{
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/actors?page=${currentPage.value}&itemsPerPage=${itemsPerPage.value}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const jsonData = await response.json();
+        if (jsonData.code === 401) {
+          await router.push("/login");
+          console.log("Vous n'êtes pas connecté");
         }
-      );
-      const jsonData = await response.json();
-      if (jsonData.code === 401) {
-        await router.push("/login");
-        console.log("Vous n'êtes pas connecté");
+        actors.value = jsonData["hydra:member"];
+        totalPages.value = jsonData["hydra:view"]["hydra:last"].split("=")[1];
+        updatePagination();
+      } catch (error) {
+        console.log(error);
       }
-      actors.value = jsonData["hydra:member"];
-      totalPages.value = jsonData["hydra:view"]["hydra:last"].split("=")[1];
-      updatePagination();
-    } catch (error) {
-      console.log(error);
     }
-  } else {
-    console.log("Vous n'êtes pas connecté");
-  }
 };
+
 
 
 const search = async () => {
