@@ -34,4 +34,8 @@ Pour se connecter à l'application, il faut utiliser les identifiants suivants :
 - email : `user@gmail.com`
 - mot de passe : `password`
 
+##  Accès au projet symfony
+
+L'accès au projet symfony se situe dans le fichier .submodule
+
 
