@@ -3,7 +3,6 @@
     <div class="card mb-4">
       <div class="card-body">
         <h4 class="card-title">{{ category.name }}</h4>
-        <p class="card-text">{{  }}</p>
         <div class="d-flex justify-content-between align-items-center">
           <router-link :to="{ name: 'CategoryDetail', params: { id: category && category.id }}" class="btn btn-info btn-sm">En savoir plus</router-link>
           <div class="d-flex">
