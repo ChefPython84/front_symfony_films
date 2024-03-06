@@ -1,6 +1,6 @@
 # Front_symfony_films
 
-Ce projet est un projet de test pour un poste de développeur front-end. Il s'agit d'une application web permettant de lister des films et de les consulter.
+Il s'agit d'une application web permettant de lister des films et de les consulter.
 
 Auteur : Erwan Couturier TP E
 
@@ -33,4 +33,9 @@ Pour se connecter à l'application, il faut utiliser les identifiants suivants :
 
 - email : `user@gmail.com`
 - mot de passe : `password`
+
+##  Accès au projet symfony
+
+L'accès au projet symfony se situe dans le fichier .submodule
+
 

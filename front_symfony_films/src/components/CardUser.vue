@@ -2,22 +2,42 @@
   <div>
     <div class="card mb-4">
       <div class="card-body">
-        <h4 class="card-title">{{ category.name }}</h4>
+        <h4 class="card-title">{{ user.username }}</h4>
+        <p class="card-text">{{ user.email }}</p>
+        <p class="card-text fst-italic">
+          <strong>Roles :</strong> {{ user.roles }}
+        </p>
         <div class="d-flex justify-content-between align-items-center">
-          <router-link :to="{ name: 'CategoryDetail', params: { id: category && category.id }}" class="btn btn-info btn-sm">En savoir plus</router-link>
+          <router-link :to="{ name: 'UserDetail', params: { id: user && user.id }}" class="btn btn-info btn-sm">En savoir plus</router-link>
           <div class="d-flex">
-            <button type="button" class="btn btn-warning btn-sm ms-2" @click="toggleDetails(category.id)">Modifier</button>
-            <button type="button" class="btn btn-danger btn-sm ms-2" @click="openDeleteModal(category.id)">Supprimer</button>
+            <button type="button" class="btn btn-warning btn-sm ms-2" @click="toggleDetails(user.id)">Modifier</button>
+            <button type="button" class="btn btn-danger btn-sm ms-2" @click="openDeleteModal(user.id)">Supprimer</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-3 card p-5 border-warning bg-light my-4" v-if="selectedCategory">
-      <h2>{{ selectedCategory.name }}</h2>
-      <form @submit.prevent="updatedCategory">
+    <div class="col-md-3 card p-5 border-warning bg-light my-4" v-if="selectedUser">
+      <h2>{{ selectedUser.name }}</h2>
+      <form @submit.prevent="updateUser">
         <div class="form-group mt-4">
-          <label for="editCategoryName">Nom de la categorie</label>
-          <input type="text" class="form-control mt-1" id="editCategoryName" v-model="selectedCategory.name" />
+          <label for="editUserName">Pseudo de l'utilisateur</label>
+          <input type="text" class="form-control mt-1" id="editUserName" placeholder="jean" v-model="selectedUser.name" />
+        </div>
+        <div class="form-group mt-4">
+          <label for="editUserEmail">Email de l'acteur</label>
+          <input type="email" class="form-control mt-1" id="editUserEmail" placeholder="exemple@exemple.com" v-model="selectedUser.email" />
+        </div>
+        <div class="form-group mt-4">
+          <label for="editUserPassword">Mot de passe</label>
+          <span class="text-muted"> (Le mot de passe doit avoir sept caractères ou plus et contenir au moins une lettre majuscule et une lettre minuscule)</span>
+          <input type="password" class="form-control mt-1" id="editUserPassword" placeholder="password" v-model="selectedUser.password" />
+        </div>
+        <div class="form-group mt-4">
+          <label for="editUserRoles">Roles</label>
+          <select class="form-select mt-1" id="editUserRoles" v-model="selectedUser.roles" multiple>
+            <option value="ROLE_USER">Utilisateur</option>
+            <option value="ROLE_ADMIN">Administrateur</option>
+          </select>
         </div>
         <div class="my-3 mt-3">
           <button type="submit" class="btn btn-primary">Modifier</button>
@@ -34,7 +54,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            La catégorie a été mis à jour avec succès !
+            L'utilisateur a été mis à jour avec succès !
           </div>
         </div>
       </div>
@@ -48,7 +68,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            {{ deleteSuccess ? 'La catégorie a été supprimé avec succès !' : 'La catégorie a été supprimé avec succès ' }}
+            {{ deleteSuccess ? 'L\'utilisateur a été supprimé avec succès !' : 'L\'utilisateur a été supprimé avec succès ' }}
           </div>
         </div>
       </div>
@@ -59,47 +79,49 @@
 <script setup>
 import { defineProps, ref, onMounted } from 'vue';
 
-const { category, categories } = defineProps(['category', 'categories']);
-const selectedCategoryId = ref(null);
-const selectedCategory = ref(null);
+const { user, users } = defineProps(['user', 'users']);
+const selectedUserId = ref(null);
+const selectedUser = ref(null);
 const deleteSuccess = ref(false);
 
 const toggleDetails = (id) => {
-  selectedCategoryId.value = id;
-  selectedCategory.value = categories.find((category) => category.id === id);
+  selectedUserId.value = id;
+  selectedUser.value = users.find((user) => user.id === id);
 };
 
-const updatedCategory = async () => {
+const updateUser = async () => {
   const token = localStorage.getItem('token');
-  if (token && selectedCategory.value) {
+  if (token && selectedUser.value) {
     try {
-      const response = await fetch(`http://localhost:8000/api/categories/${selectedCategoryId.value}`, {
+      const response = await fetch(`http://localhost:8000/api/users/${selectedUserId.value}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          name: selectedCategory.value.name,
+          username: selectedUser.value.username,
+          email: selectedUser.value.email,
+          password: selectedUser.value.password,
+          roles: [selectedUser.value.roles],
         }),
       });
 
       const responseData = await response.json();
 
       if (!response.ok) {
-        console.error('Erreur lors de la modification de la catégorie:', responseData);
-        throw new Error('Erreur lors de la modification de la catégorie');
+        console.error('Erreur lors de la modification de l\'utilisateur:', responseData);
+        throw new Error('Erreur lors de la modification de l\'utilisateur');
       }
 
       const updateSuccessModal = new bootstrap.Modal(document.getElementById('updateSuccessModal'));
       updateSuccessModal.show();
 
-      const categoryIndex = categories.findIndex((category) => category.id === selectedCategoryId.value);
-      // eslint-disable-next-line vue/no-mutating-props
-      categories[categoryIndex] = responseData;
+      const userIndex = users.findIndex((user) => user.id === selectedUserId.value);
+      users[userIndex] = responseData;
 
-      selectedCategoryId.value = null;
-      selectedCategory.value = null;
+      selectedUserId.value = null;
+      selectedUser.value = null;
     } catch (error) {
       console.error(error.message);
     }
@@ -107,21 +129,19 @@ const updatedCategory = async () => {
 };
 const openDeleteModal = (id) => {
   console.log('Open Delete Modal called');
-  selectedCategoryId.value = id;
+  selectedUserId.value = id;
   const deleteSuccessModal = new bootstrap.Modal(document.getElementById('deleteSuccessModal'));
   deleteSuccessModal.show();
   setTimeout(async () => {
     try {
       const token = localStorage.getItem('token');
-      if (token && selectedCategoryId.value) {
-        const response = await fetch(`http://localhost:8000/api/categories/${selectedCategoryId.value}`, {
+      if (token && selectedUserId.value) {
+        const response = await fetch(`http://localhost:8000/api/users/${selectedUserId.value}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        console.log('Delete response:', response);
 
         if (response.ok) {
           deleteSuccess.value = true;
@@ -131,20 +151,20 @@ const openDeleteModal = (id) => {
         }
       }
     } catch (error) {
-      console.error('Delete error:', error.message);
+      console.error(error.message);
       deleteSuccess.value = false;
     }
   }, 1000);
 };
 
 const closeForm = () => {
-  selectedCategoryId.value = null;
-  selectedCategory.value = null;
+  selectedUserId.value = null;
+  selectedUser.value = null;
 };
 
 onMounted(() => {
-  selectedCategoryId.value = null;
-  selectedCategory.value = null;
+  selectedUserId.value = null;
+  selectedUser.value = null;
 });
 </script>
 
