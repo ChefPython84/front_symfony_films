@@ -27,7 +27,7 @@ git clone https://github.com/ChefPython84/front_symfony_films.git
 npm run serve
 ```
 
-##  Connexion 
+##  Connexion
 
 Pour se connecter à l'application, il faut utiliser les identifiants suivants :
 
