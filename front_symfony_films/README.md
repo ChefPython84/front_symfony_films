@@ -1,6 +1,6 @@
 # Front_symfony_films
 
-Ce projet est un projet de test pour un poste de développeur front-end. Il s'agit d'une application web permettant de lister des films et de les consulter.
+Il s'agit d'une application web permettant de lister des films et de les consulter.
 
 Auteur : Erwan Couturier TP E
 
